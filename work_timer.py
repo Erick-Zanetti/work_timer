@@ -131,8 +131,8 @@ class FloatingTimer(QWidget):
             return None
 
     def add_timer(self, name=None, auto=False):
-        if len(self.timer_data) >= 3: # Increased limit slightly
-            QMessageBox.warning(self, "Limit Reached", "Limit of 3 timers to keep the UI clean.")
+        if len(self.timer_data) >= 10: # Increased limit to 10
+            QMessageBox.warning(self, "Limit Reached", "Limit of 10 timers reached.")
             return
 
         if not auto:
@@ -217,12 +217,13 @@ class FloatingTimer(QWidget):
         self.timers_layout.addLayout(row)
 
     def adjust_window_height(self):
-        # Auto-resize based on content roughly
+        # dynamic resize
         count = len(self.timer_data)
-        base_h = 60
-        row_h = 50
+        # Header ~40px, padding ~30px, each row ~40px
+        base_h = 70 
+        row_h = 45 
         target_h = base_h + (count * row_h)
-        self.setFixedHeight(target_h)
+        self.setFixedSize(320, target_h)
 
     def toggle_timer(self, name):
         # Only Pause functionality requested for this toggle?
